@@ -7,7 +7,7 @@ command_timeout = 10_000
 # Change the default prompt format
 format = """\
 $env_var$battery$directory$all\
-$time$character"""
+$time$shell$character"""
 
 [time]
 disabled = false
@@ -19,9 +19,9 @@ style = "fg:0 bg:191"
 
 # Battery
 [battery]
-full_symbol = ""
-charging_symbol = "⇡"
-discharging_symbol = "⇣"
+full_symbol = "󰁹"
+charging_symbol = "⇡󰂄"
+discharging_symbol = "⇣󰂃"
 format = "[ $symbol $percentage ]($style) "
 
 [[battery.display]]
@@ -55,24 +55,32 @@ style = "fg:0 bg:10"
 # Change the default prompt characters
 [character]
 success_symbol = "[❯](fg:191)"
-error_symbol = "[](fg:9)"
+error_symbol = "[❯](fg:9)"
+# error_symbol = "[](fg:9)"
+disabled = false
+
+[shell]
+powershell_indicator = "[pwsh](fg:51)"
+bash_indicator = "[bash](fg:10)"
+zsh_indicator = "[zsh](fg:208)"
+disabled = false
 
 # Shows an icon that should be included by zshrc script based on the distribution or os
 [env_var.STARSHIP_DISTRO]
 format = "[$env_value](white) "
 variable = "STARSHIP_DISTRO"
-disabled = false
+disabled = true
 
 [username]
 style_user = "fg:white bg:black"
 style_root = "fg:black bg:white"
 format = "[$user]($style)@"
-disabled = false
 show_always = false
+disabled = false
 
 [cmd_duration]
 min_time = 2_000
-format = '[ 羽 $duration ](fg:0 bg:255) '
+format = '[ 󱦟 $duration ](fg:0 bg:255) '
 
 [directory]
 truncation_length = 10
@@ -84,58 +92,19 @@ read_only = "  "
 use_os_path_sep	= false
 format = "[[$read_only]($read_only_style)  $path ]($style) "
 
-
 [directory.substitutions]
 "odg-digital-services/infrastructure/pulumi/" = ""
 "odg-digital-services/apps/customer/functions/" = ""
 "odg-digital-services/apps/platforms/functions/" = ""
+"odg-digital-services/apps/systems/functions/" = ""
+"odg-digital-services/apps/web/" = ""
+"odg-digital-services/libs/" = ""
+
 "odg-digital-services/dist/apps/customer/functions/" = "dist -> "
 "odg-digital-services/dist/apps/platforms/functions/" = "dist -> "
-# "odg-digital-services/apps/dashboard/" = "apps/dashboard/"
-"odg-digital-services/apps/widgets/" = "page-pilets/"
-# "odg-digital-services/libs/" = "lib-"
-
-"odg-digital-services/libs/component-auth" = "component-auth"
-"odg-digital-services/apps/customer/functions/customer-profile-api" = "customer-profile-api"
-"odg-digital-services/apps/customer/widgets/customer-profile-ui" = "customer-profile-ui"
-"odg-digital-services/apps/dashboard" = "dashboard"
-"odg-digital-services/libs/design-system" = "design-system"
-"odg-digital-services/infrastructure/pulumi/core-appgw" = "iac-core-appgw"
-"odg-digital-services/infrastructure/pulumi/core-infrastructure" = "iac-core-infrastructure"
-"odg-digital-services/infrastructure/pulumi/enterprise-services" = "iac-enterprise-services"
-"odg-digital-services/infrastructure/pulumi/services-portal" = "iac-services-portal"
-"odg-digital-services/libs/api/auth" = "libs/api-auth"
-"odg-digital-services/libs/api/error-handling" = "libs/api-error-handling"
-"odg-digital-services/libs/api/helpers" = "libs/api-helpers"
-"odg-digital-services/libs/api/logging" = "libs/api-logging"
-"odg-digital-services/libs/api/service-bus" = "libs/api-service-bus"
-"odg-digital-services/libs/api/shared-dtos" = "libs/api-shared-dtos"
-"odg-digital-services/libs/api/test" = "libs/api-test"
-"odg-digital-services/libs/iac/core" = "libs/iac-core"
-"odg-digital-services/libs/iac/apps" = "libs/iac-apps"
-"odg-digital-services/libs/shared/auth" = "libs/shared-auth"
-"odg-digital-services/libs/shared/customer-profile-api" = "libs/shared-customer-profile-api"
-"odg-digital-services/libs/shared/licence-api" = "libs/shared-licence-api"
-"odg-digital-services/libs/shared/transaction-manager-api" = "libs/shared-transaction-manager-api"
-"odg-digital-services/apps/customer/functions/licence-api" = "licence-api"
-"odg-digital-services/apps/platforms/functions/lodgement-api" = "lodgement-api"
-"odg-digital-services/libs/nx-plugin" = "nx-plugin"
-"odg-digital-services/apps/platforms/functions/transaction-manager-api" = "transaction-manager-api"
-"odg-digital-services/apps/widgets/customer-profile/transactions-status" = "widgets-customer-transactions"
-"odg-digital-services/apps/widgets/design-system" = "widgets-design-system"
-"odg-digital-services/apps/widgets/layout" = "widgets-layout"
-"odg-digital-services/apps/widgets/customer-profile/licences" = "widgets-licences"
-"odg-digital-services/apps/widgets/customer-profile/personal-information" = "widgets-personal-information"
-"odg-digital-services/apps/widgets/token-info" = "widgets-token-info"
-"odg-digital-services/apps/widgets/welcome" = "widgets-welcome"
-
-
-
-
-# "/" = "  "
-# "/" = "  "
-# "\\" = ""
-# style = "fg:0 bg:191"
+"odg-digital-services/dist/apps/systems/functions/" = "dist -> "
+"odg-digital-services/dist/apps/web/" = "dist -> "
+"odg-digital-services/dist/apps/libs/" = "dist -> "
 
 [git_branch]
 symbol = " "
@@ -159,18 +128,18 @@ untracked  = "[?${count} ](fg:0 bg:215)"
 stashed    = ""
 modified   = "[~${count} ](fg:0 bg:215)"
 staged     = "[+${count} ](fg:0 bg:215)"
-renamed    = "[${count} ](fg:0 bg:215)"
+renamed    = "[󰁔${count} ](fg:0 bg:215)"
 deleted    = "[${count} ](fg:0 bg:215)"
 
 
-# [gcloud]
+[gcloud]
 # format = " on [$symbol$account(@$domain)(\($region\))]($style) "
-# symbol = "☁️"
+symbol = "󱇶"
 
 [azure]
 format = "[ $symbol($subscription) ]($style) "
 style = "fg:0 bg:39"
-symbol = "ﴃ "
+symbol = " "
 disabled = false
 
 [pulumi]
@@ -191,20 +160,20 @@ format = "[  $context](13) "
 [package]
 format = "[ $symbol$version ]($style) "
 style = "fg:0 bg:45"
-symbol = " "
+symbol = "󰏗 "
 version_format = "v${raw}"
 display_private = true
 
 [python]
 format = "[ $symbol$version ]($style) "
-symbol = " "
+symbol = "󰌠 "
 style = "fg:220 bg:27"
 python_binary = "python3"
 
 [nodejs]
 format = "[ $symbol$version ](fg:0 bg:155) "
 symbol = " "
-disabled = true
+disabled = false
 
 [ruby]
 format = " [  $version](fg:0 bg:124) "
